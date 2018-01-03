@@ -1,23 +1,25 @@
 # Site settings
-title: Jekyll-Uno
-description: 'Jekyll-Uno - a minimal, responsive theme for Jekyll'
-url: 'http://joshgerdes.com/jekyll-uno'
-baseurl: '/jekyll-uno'
+title: Mohammed Tanveer
+description: 'Personal experiences from the world of Information Security'
+url: 'http://127.0.0.1:4000'
+baseurl: 
+
+port: 80
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
 author:
-  name: 'Josh Gerdes'
-  email: josh@joshgerdes.com
-  twitter_username: joshgerdes
-  facebook_username: joshgerdes
-  github_username:  joshgerdes
-  linkedin_username:  joshgerdes
+  name: 'Mohammed Tanveer'
+  email: reachme@threatpointer.com
+  twitter_username: threatpointer
+  facebook_username: 
+  github_username:  threatpointer
+  linkedin_username: mdtanveer
 
 defaults:
   -
     scope:
-      path: ''
+      path: '/'
       type: 'posts'
     values:
         layout: 'post'
@@ -41,3 +43,5 @@ kramdown:
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+
+

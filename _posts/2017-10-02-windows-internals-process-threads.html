@@ -1,0 +1,360 @@
+---
+layout: post
+title: Windows Internals- Process & Threads
+date: 2017-10-02 10:45:32.000000000 +05:30
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Windows Internals
+tags: []
+meta:
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13778265;s:59:"https://twitter.com/threatpointer/status/914803552538767361";}}
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '9885736172'
+  _publicize_done_13846435: '1'
+  _wpas_done_13778265: '1'
+  publicize_twitter_user: threatpointer
+  _publicize_failed_13846447: "O:13:\"Keyring_Error\":2:{s:6:\"errors\";a:1:{s:21:\"keyring-request-error\";a:1:{i:0;a:6:{s:7:\"headers\";O:42:\"Requests_Utility_CaseInsensitiveDictionary\":1:{s:7:\"\0*\0data\";a:12:{s:6:\"server\";s:17:\"Apache-Coyote/1.1\";s:15:\"x-li-request-id\";s:10:\"785UPVEIF4\";s:4:\"date\";s:29:\"Mon,
+    02 Oct 2017 10:45:38 GMT\";s:4:\"vary\";s:1:\"*\";s:11:\"x-li-format\";s:4:\"json\";s:12:\"content-type\";s:30:\"application/json;charset=UTF-8\";s:16:\"content-encoding\";s:4:\"gzip\";s:11:\"x-li-fabric\";s:9:\"prod-lsg1\";s:8:\"x-li-pop\";s:9:\"prod-eda6\";s:10:\"x-li-proto\";s:8:\"http/1.1\";s:10:\"set-cookie\";s:154:\"lidc=\"b=SB61:g=60:u=293:i=1506941138:t=1507016442:s=AQHlWNFvOjyXx9TZcedtxG9RmdSOc8G0\";
+    Expires=Tue, 03 Oct 2017 07:40:42 GMT; domain=.linkedin.com; Path=/\";s:9:\"x-li-uuid\";s:24:\"/LAuOu666RSAtRBFLSsAAA==\";}}s:4:\"body\";s:175:\"{\n
+    \ \"errorCode\": 0,\n  \"message\": \"[unauthorized]. Expired access token. Timestamp:
+    1461774297516\",\n  \"requestId\": \"785UPVEIF4\",\n  \"status\": 401,\n  \"timestamp\":
+    1506941138664\n}\";s:8:\"response\";a:2:{s:4:\"code\";i:401;s:7:\"message\";s:12:\"Unauthorized\";}s:7:\"cookies\";a:1:{i:0;O:14:\"WP_Http_Cookie\":5:{s:4:\"name\";s:4:\"lidc\";s:5:\"value\";s:80:\"\"b=SB61:g=60:u=293:i=1506941138:t=1507016442:s=AQHlWNFvOjyXx9TZcedtxG9RmdSOc8G0\"\";s:7:\"expires\";i:1507016442;s:4:\"path\";s:1:\"/\";s:6:\"domain\";s:12:\"linkedin.com\";}}s:8:\"filename\";N;s:13:\"http_response\";O:25:\"WP_HTTP_Requests_Response\":5:{s:11:\"\0*\0response\";O:17:\"Requests_Response\":10:{s:4:\"body\";s:175:\"{\n
+    \ \"errorCode\": 0,\n  \"message\": \"[unauthorized]. Expired access token. Timestamp:
+    1461774297516\",\n  \"requestId\": \"785UPVEIF4\",\n  \"status\": 401,\n  \"timestamp\":
+    1506941138664\n}\";s:3:\"raw\";s:695:\"HTTP/1.1 401 Unauthorized\r\nServer: Apache-Coyote/1.1\r\nx-li-request-id:
+    785UPVEIF4\r\nDate: Mon, 02 Oct 2017 10:45:38 GMT\r\nVary: *\r\nx-li-format: json\r\nContent-Type:
+    application/json;charset=UTF-8\r\nContent-Encoding: gzip\r\nX-Li-Fabric: prod-lsg1\r\nTransfer-Encoding:
+    chunked\r\nX-Li-Pop: prod-eda6\r\nX-LI-Proto: http/1.1\r\nSet-Cookie: lidc=\"b=SB61:g=60:u=293:i=1506941138:t=1507016442:s=AQHlWNFvOjyXx9TZcedtxG9RmdSOc8G0\";
+    Expires=Tue, 03 Oct 2017 07:40:42 GMT; domain=.linkedin.com; Path=/\r\nX-LI-UUID:
+    /LAuOu666RSAtRBFLSsAAA==\r\n\r\n{\n  \"errorCode\": 0,\n  \"message\": \"[unauthorized].
+    Expired access token. Timestamp: 1461774297516\",\n  \"requestId\": \"785UPVEIF4\",\n
+    \ \"status\": 401,\n  \"timestamp\": 1506941138664\n}\";s:7:\"headers\";O:25:\"Requests_Response_Headers\":1:{s:7:\"\0*\0data\";a:12:{s:6:\"server\";a:1:{i:0;s:17:\"Apache-Coyote/1.1\";}s:15:\"x-li-request-id\";a:1:{i:0;s:10:\"785UPVEIF4\";}s:4:\"date\";a:1:{i:0;s:29:\"Mon,
+    02 Oct 2017 10:45:38 GMT\";}s:4:\"vary\";a:1:{i:0;s:1:\"*\";}s:11:\"x-li-format\";a:1:{i:0;s:4:\"json\";}s:12:\"content-type\";a:1:{i:0;s:30:\"application/json;charset=UTF-8\";}s:16:\"content-encoding\";a:1:{i:0;s:4:\"gzip\";}s:11:\"x-li-fabric\";a:1:{i:0;s:9:\"prod-lsg1\";}s:8:\"x-li-pop\";a:1:{i:0;s:9:\"prod-eda6\";}s:10:\"x-li-proto\";a:1:{i:0;s:8:\"http/1.1\";}s:10:\"set-cookie\";a:1:{i:0;s:154:\"lidc=\"b=SB61:g=60:u=293:i=1506941138:t=1507016442:s=AQHlWNFvOjyXx9TZcedtxG9RmdSOc8G0\";
+    Expires=Tue, 03 Oct 2017 07:40:42 GMT; domain=.linkedin.com; Path=/\";}s:9:\"x-li-uuid\";a:1:{i:0;s:24:\"/LAuOu666RSAtRBFLSsAAA==\";}}}s:11:\"status_code\";i:401;s:16:\"protocol_version\";d:1.100000000000000088817841970012523233890533447265625;s:7:\"success\";b:0;s:9:\"redirects\";i:0;s:3:\"url\";s:42:\"http://api.linkedin.com/v1/people/~/shares\";s:7:\"history\";a:0:{}s:7:\"cookies\";O:19:\"Requests_Cookie_Jar\":1:{s:10:\"\0*\0cookies\";a:1:{s:4:\"lidc\";O:15:\"Requests_Cookie\":5:{s:4:\"name\";s:4:\"lidc\";s:5:\"value\";s:80:\"\"b=SB61:g=60:u=293:i=1506941138:t=1507016442:s=AQHlWNFvOjyXx9TZcedtxG9RmdSOc8G0\"\";s:10:\"attributes\";O:42:\"Requests_Utility_CaseInsensitiveDictionary\":1:{s:7:\"\0*\0data\";a:3:{s:7:\"expires\";i:1507016442;s:6:\"domain\";s:12:\"linkedin.com\";s:4:\"path\";s:1:\"/\";}}s:5:\"flags\";a:4:{s:8:\"creation\";i:1506941138;s:11:\"last-access\";i:1506941138;s:10:\"persistent\";b:0;s:9:\"host-only\";b:0;}s:14:\"reference_time\";i:1506941138;}}}}s:11:\"\0*\0filename\";N;s:4:\"data\";N;s:7:\"headers\";N;s:6:\"status\";N;}}}}s:10:\"error_data\";a:0:{}}"
+author:
+  login: threatpointerblog
+  email: mohammedtanveer@live.com
+  display_name: threatpointerblog
+  first_name: ''
+  last_name: ''
+---
+<p>As &amp; when I refer my notes from time to time to clear my thoughts, it struck me- this is private to me only. This could probably help someone starting out or to even someone who'd like to visualize &amp; clear the air- Off course we could go through the books like we had to but this is more abstract. With those thoughts, i'd like to start enlisting my notes on the basics of Windows Internals (Its raw, feel free to drop a comment for any questions if you may)</p>
+<p>Any feedback around this would be really appreciated :)<br />
+<b><br />
+User Mode:</b></p>
+<ul>
+<li>Doesn't allow access to hardware</li>
+<li>Protects user Applications from crashing the system</li>
+</ul>
+<p><b>Kernel Mode</b></p>
+<ul>
+<li>Privileged mode used by the kernel and device drivers</li>
+<li>Allows access to all system resources -memory</li>
+<li>Exceptions causes the system to crash</li>
+</ul>
+<p><b>Process<br />
+</b>Process is a manager (a set of resources used to execute a program)<br />
+Process is a management object. Process does not run, threads run.</p>
+<p style="padding-left:30px;"><b>Consists of:</b><b><br />
+</b>A private virtual address space (2GB/3GB on 32bit, 8TB on 64bit)<br />
+An executable program referring to an image file on the disk which has the initial code and data to be executed<br />
+Has a private table to handles of various kernel objects- User mode to kernel mode handles (a number)<br />
+Ex: If one process has a bad pointer that points to nowhere and causes Null pointer dereference &amp; an exception is thrown, that process may crash &amp; not effecting others<br />
+Basic creation functions- <strong>CreateProcess, CreateProcessAsUser</strong><br />
+Terminate when any of the following occur-<br />
+All threads in the process terminate<br />
+One of the threads calls <strong>ExitProcess(Win32)<br />
+</strong>                                   Killed with <strong>TerminateProcess(Win32)</strong></p>
+<p lang="en-US" style="padding-left:30px;"><strong>Process Creation</strong></p>
+<p lang="en-US" style="padding-left:30px;">Flow of Process creation<br />
+Open image file-<br />
+Create kernel Executive Process object (Kprocess structure is the lowest process &amp; is wrapped with Eprocess structure)<br />
+Create initial thread<br />
+Create Kernel Executive thread object<br />
+Notify CSRSS (win32 sub system )of new process and thread -&gt; requires to be notified.<br />
+Complete process and thread initialization<br />
+Load required DLLs and initialize<br />
+DLLMain function called with DLL_PROCESS_ATTACH reason<br />
+Graceful process termination calls DLL_PROCESS_DETATCH which will do                      the required cleanup of log file, memrory etc.<br />
+Terminate forcefully, DLLMAIN is not called<br />
+Start execution of main entry point (main/winMain)</p>
+<p lang="en-US" style="padding-left:30px;">!process 0 0  -&gt; will list all the running process in the system</p>
+<p lang="en-US" style="padding-left:30px;">!process &lt;address&gt;</p>
+<p style="padding-left:30px;"><img class="alignnone size-full wp-image-192" src="{{ site.baseurl }}/assets/process.png" alt="Process" width="1148" height="588" /></p>
+<p style="padding-left:30px;"><strong>dt nt!_eprocess</strong></p>
+<p style="padding-left:30px;">Is an undocumented function that provides the inner details of the process at the kernel space</p>
+<p style="padding-left:30px;"><strong>peb</strong> - Process Environment Block-&gt; is from the User Space</p>
+<p style="padding-left:30px;"><strong>dt nt!_peb</p>
+<p>!peb </strong> will display the process execution block and should help us with all .DLLs and command line arguments they accept</p>
+<p style="padding-left:30px;">A Security context: Access tokens are used for security checks when accessing shared resources  (Read more about abusing them <a href="https://github.com/rmusser01/Infosec_Reference/blob/master/Draft/ATT%26CK-Stuff/Windows/Windows_Privilege_Escalation.md#access-token-manipulation" target="_blank" rel="noopener">here</a> or <a href="https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/">here</a>)</p>
+<p style="padding-left:30px;"><em>Threads</em><b>: </b>One or more are solely responsible for executing code <b>(</b>When a process is spawned a thread is created under it, which in turn calls the main function of the program<b>)</b><b>&lt;</b>If the thread does get to its message queue for at least 5 seconds- Windows concludes the thread is not able service message and labels it not responsive<b>&gt;<br />
+</b></p>
+<p><b>Threads<br />
+</b>Thread are the entity scheduled by the kernel to execute code</p>
+<p style="padding-left:30px;"><b>Consists of:<br />
+</b>Sate of CPU registers<br />
+Current access mode (user mode or kernel mode)<br />
+<b>Two stacks</b>, one in the user space and one in the kernel space<br />
+A private storage area, called Thread Local Storage <b>(TLS)</b>- (its kind of state table)<br />
+Optional Security Token- Usually impersonates from the parent process<br />
+Optional message queue &amp; windows (info coming from the UI activity) Ex: Anything coming from win32<br />
+<b>Priority</b> used in thread scheduling. a number between 0-31 -31 being the highest<br />
+<b>A State</b>: running, ready, waiting</p>
+<p>Are basically instance of a Function executing code they own:</p>
+<p>Context (registers, etc.) and have 2 stacks (User Mode and Kernel Mode)<br />
+Optionally, message queue and windows</p>
+<p>When a thread is created it is considered a worker thread. It is assumed to do some CPU bound and IO operations. If a thread calls any function within User32 and GDI32 subsystem DLLs Windows creates a message queue for that thread.</p>
+<p>Optionally security token: Thread by default runs under the same security token as of the parent process. However,  a thread could impersonate a security token of a different user. Server process, runs with a different identity and is needed to impersonate a client's credentials than using the servers credentials.</p>
+<p>Scheduling state</p>
+<p style="padding-left:30px;">Priority (0-31)<br />
+Lowest being 0 and higest being 31<br />
+State<br />
+(Ready- has nothing to execute, Wait- does not want to execute and is waiting something to happen, Running- Is presently running state )<br />
+Current Access Mode (user or Kernel)</p>
+<p>Basic Creation function : <strong>CreateThread(win32)<br />
+</strong>Destroyed when:<br />
+Thread function returns (Win32)<br />
+The thread calls <strong>ExitThread(Win32)</strong><br />
+Polite way of closing thread, it calls DLL main of all DLLS when created or destroyed<br />
+Terminated with <strong>TerminateThread(Win32)</strong><br />
+This does not call any of the DLL's main functions that means some resources may leak. We really don't know what has been processed and what is not -if were a lock to be set and would not know if it has happened or not.</p>
+<p><strong>Thread Stacks</strong>:<br />
+As we are aware we have two stacks -&gt; at the kernel space and the user space</p>
+<p><strong>In Kernel Space</strong> (12KB on x86) &amp; (24KB non x64)<br />
+Resides on the physical memory - most of the time (the times its not we will discuss) Make sure User code cannot interfere with the kernel mode code.<br />
+Hardware Interrupts being the other reason<br />
+<strong>In User Space</strong> (may be large) By default 1MB is reserved, 64KB committed If the stack goes below 64KB, a guard page is placed just below the last committed page, so that the stack can grow<br />
+Can change the initial size<br />
+Using the linker settings as new defaults On a thread  by thread basis in the call to <strong>CreateThread/CreateRemoteThread(Ex)</strong><br />
+Can specify a new command as reserved size, but not both Committed is assumed unless the flag STACK_SIZE_IS_A_RESERVATION is used</p>
+<p>But how can we control the Thread Stack Size ?<br />
+<img class="alignnone size-full wp-image-213" src="{{ site.baseurl }}/assets/threads.png" alt="threads" width="1045" height="556" />As shown in the above screenshot- the default Stack Reserve Size is 1MB &amp; Stack commit Size is 4KB- &gt; this is changeable from this section for the project worked upon.</p>
+<p>The other way to control this space is by setting it during the Create Thread function definition<b><img class="alignnone size-full wp-image-217" src="{{ site.baseurl }}/assets/func.png" alt="func" width="655" height="293" /><br />
+</b>The commit size is also controllable when replaced it with 0. Specifying zero would tell the program to use defaults.</p>
+<p><b></b><strong>Thread Priorities</strong></p>
+<p style="padding-left:30px;">Thread priorities are between 0 and 31 (31 being the highest)<br />
+Priority 0 is reserved for zero page thread<br />
+The Windows API mandates thread priority be based on a process priority class (base priority)<br />
+So yes, we can change the a thread's priority around the base priority<br />
+API's (Win32)<br />
+<strong>SetPriorityClass</strong> - changing the process base priority<br />
+<strong>SetThreadPriority</strong> change the thread priority offset from the parents base priority<br />
+API (Kernel)<br />
+<strong>KeSetPriorityThread</strong>- change thread priority to some absolute value (hardcode)</p>
+<p style="padding-left:30px;"><strong>Normal Priority<br />
+</strong>By Default threads in here have a base priority of 8,using SetThreadPriority function, we can add +1 or +2 as offset or -1 or -1 or -2 as offsets</p>
+<p>Two more options- Saturation values-&gt; this means we can go up to 15 being the highest and 1 being the lowest. Normal Priority range allows you to go up to 15 only. Real Time Priority Class beings with 15 and goes upto 31.</p>
+<p style="padding-left:30px;"><strong>Above Normal Priority Class</strong></p>
+<p style="padding-left:30px;">By Default threads in here have a base priority of 10, we can increase this to 11 or 12 or decrease this to 9 or 8. Saturated values are possible as well and can be between 15 and 1.</p>
+<p style="padding-left:30px;"><img class="alignnone size-full wp-image-225" src="{{ site.baseurl }}/assets/thread-priorities.png" alt="Thread Priorities" width="972" height="639" /></p>
+<p style="padding-left:30px;">We can see more details about this using Process monitor and CPU stress tool to view the same as mentioned above<br />
+<b><br />
+<img class="alignnone size-full wp-image-228" src="{{ site.baseurl }}/assets/stress.png" alt="Stress" width="792" height="718" /><br />
+</b></p>
+<p><strong>Thread Scheduling</strong></p>
+<p style="padding-left:30px;">Windows Scheduler schedules the threads<br />
+Assuming we have only 1 CPU at a given time how would we priorities and schedules threads to execute ?</p>
+<p>Ready Queue is the solution to this problem<br />
+Has the threads that are in ready state and based on their priority</p>
+<p style="padding-left:30px;"><img class="alignnone size-full wp-image-232" src="{{ site.baseurl }}/assets/priority.png" alt="Priority" width="823" height="661" /></p>
+<p style="padding-left:30px;">Priority takes the 1st preference - 1 and 2 will be processed. We will take 1 and move it to the running state.  IT will run for a preiod of time called Thread quantum. After a while it checks and finds another thread is present with the same priority- then removes 1 from the running state and processes 2 to the running state to execute- &gt; it goes to thread quantum and moves 1 back and forth. 3 4 and others will not get the chance to execute.</p>
+<p style="padding-left:30px;">If thread 1 or any that is being processed is awaited on any IO operation- it is moved to the waiting state and goes to process the other ones that are in the ready queue.</p>
+<p style="padding-left:30px;">While thread 1 with the highest priority was put on the waiting state, when it comes to ready state- any thread that is being processes it stopped and preference is given to thread 1. known as <strong>Preemption<br />
+</strong><br />
+Priority based, Preemptive, time-sliced<br />
+Highest priority thread runs first<br />
+If time slice (quantum) elapses and there is another thread with the same                       priority in the read state - it runs (Otherwise the same thread runs again)<br />
+If thread A runs and thread B (with higher priority) receives something it                       waited upon (message, kernel object signalling, etc.) Thread A is preempted and           Thread B becomes the running thread.<br />
+Voluntary switch<br />
+A thread entering a wait state is dropped from the schedule's ready list<br />
+Typical time slice is 30 msec on client, 180 msec on server<br />
+On a multi processor system with n logical processors, n concurrent threads may be running.</p>
+<p><strong>The Quantum</strong></p>
+<p>Scheduler clock tick is typically 10 msec (uni-processor) and 15 msec (multi-processor)<br />
+Can determine with clockres.exe utility from SysInternals<br />
+Default Client Quantum is 2 clock ticks<br />
+Default Server Quantum is 12 clock ticks<br />
+Quantum can be modified by using the registry or a Job<br />
+Quantum boosting-<br />
+On a system configured for short variable quantum<br />
+The foreground process gets triple quantum<br />
+For any process with priority class above idle<br />
+Quantum can be found here</p>
+<p><img class="alignnone size-full wp-image-270" src="{{ site.baseurl }}/assets/quantum.png" alt="Quantum" width="818" height="596" /></p>
+<p><strong>Thread Synchronization</strong></p>
+<p>Threads sometime need to coordinate work<br />
+Canonical example<br />
+Accessing a lined list concurrently from multiple threads<br />
+Synchronization is based upon waiting for some condition to occur<br />
+The kernel provides a set of synchronization (dispatcher) primitives on which threads can wait efficiently</p>
+<p>Kernel Dispatcher Objects</p>
+<p>Maintain a state (signaled or non-signaled)<br />
+The meaning of signaled depends on the object type<br />
+It can wait for multiple objects or on a single object. Windows API: WaitForsigleObject or WaitForMulitpleObjects and similar variants<br />
+Kernel Mode: <strong>KeWaitSingleObject, KeWaitForMulipleObjects</strong></p>
+<p>Dispatcher object types:</p>
+<p>Process thread, event, mutex, semaphore, timer, file, I/O completion port</p>
+<p>High Level wrappers exist</p>
+<p>MFC: CSyncObject (abstract base of Cmutex, Csemaphore and others)<br />
+.NET: WaitHandle (abstract base of Mutex, Semaphore  and others)</p>
+<p><strong>Signaled Meaning</strong></p>
+<ul>
+<li>Process
+<ul>
+<li>The process has terminated</li>
+</ul>
+</li>
+<li>Thread
+<ul>
+<li>The thread has terminiated</li>
+</ul>
+</li>
+<li>Mutex
+<ul>
+<li>The mutex is free</li>
+</ul>
+</li>
+<li>Event
+<ul>
+<li>The event flag is raised</li>
+</ul>
+</li>
+<li>Semaphore
+<ul>
+<li>The semaphore count is greater than zero</li>
+</ul>
+</li>
+<li>File, I/O completion port
+<ul>
+<li>I/O operation completed</li>
+</ul>
+</li>
+<li>Timer</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>MUTEX (</strong>Means Mutual exclusion)</p>
+<ul>
+<li>Called mutant in kernel terminology</li>
+<li>Allows a single thread to enter a critical region</li>
+<li>The thread that enters the critical region is the owner of the mutex</li>
+<li>Releasing the mutex allows one (single) thread to acquire it and enter the critical section</li>
+<li>Recursive acquisition is supported. Increments a counter</li>
+<li>If the owning thread does not release the mutex before it terminates, the kernel releases it and the next wait succeeds with a special code (abandoned mutex)</li>
+<li>Mutex is for protecting data while its being processed by the thread</li>
+</ul>
+<p><strong>Semaphore</strong></p>
+<ul>
+<li>Maintains a counter (set at creation time)</li>
+<li>Allows x callers to "go through" a gate</li>
+<li>When a thread succeeds a wait, the semaphore counter decreases</li>
+<li>When the counter reaches zero, subsequent wait do not succeed (state is non-signaled)</li>
+<li>Releasing the semaphore increments its counter, releasing a thread that is waiting</li>
+</ul>
+<p><strong><br />
+Event</strong></p>
+<ul>
+<li>Maintains a boolean flag</li>
+<li>Event Types
+<ul>
+<li>Manual reset( notification in kernel terminology)</li>
+<li>Auto reset (synchronization)</li>
+</ul>
+</li>
+<li>When set (signaled) threads waiting for it succeed the wait
+<ul>
+<li>Manaul reset event releases any number of threads</li>
+<li>Auto reset event releases just one thread
+<ul>
+<li>And the event goes automatically to the non signled state</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>It's more of flow synchronization ()</li>
+<li>One of them to control the others and ask them to shutdown many processes. Use an event, controlling process and can be set for all processes.</li>
+</ul>
+<p><strong>Critical Section</strong></p>
+<ul>
+<li>User Mode replacement for a mutex</li>
+<li>Can be used synchronize threads with a single process (Cross Process sync is no possible &amp; is only possible by Mutex)
+<ul>
+<li>Operates on a structure of type CRITICAL_SECTION</li>
+</ul>
+</li>
+<li>Cheaper than a mutex when no contention exists
+<ul>
+<li>No transition to kernel mode in this case</li>
+</ul>
+</li>
+<li>Uses <strong>EnterCriticalSection</strong> and <strong>LeaveCriticalSection</strong> API fucntions
+<ul>
+<li>No way to specify a timeout other than infinite and zero
+<ul>
+<li>Zero is accomplished with TryEnterCriticalSection</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>.Net
+<ul>
+<li>A similar effect is achieved with the lock C# keyword</li>
+<li>Calls the frameworks Monitor.Enter/Exit in a try/finally block</li>
+</ul>
+</li>
+</ul>
+<p><strong>Jobs</strong></p>
+<ul>
+<li>Kernel object that allows managing one (or more) processes as a unit</li>
+<li>System enforces Job quotas and security
+<ul>
+<li>Total and per process CPU time, working sets, CPU affinity and priority class, quantum length (for long, fixed quantum only)</li>
+<li>Security Limits</li>
+<li>UI Limits</li>
+</ul>
+</li>
+<li>API
+<ul>
+<li>CreateJobObject /OpenJobObject</li>
+<li>AssignProcessToJobObject (adding a process to a job is a one way operation &amp; is going to be forever)</li>
+<li>TerminateJobObject (can terminate all process under this job)</li>
+<li>SetInformationJobObject (Humangus fucntion with high imporatnce within the API suite)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Objects &amp; Handles:</strong>Objects are runtime instances of static structures Ex: process, mutex, event, desktop, file</p>
+<ul>
+<li>Reside in system memory space</li>
+<li>Kernel code can obtain direct pointer to an object</li>
+<li>User mode code can only obtain a handle to an object</li>
+<li>[Handle- shields user code from directly accessing an object</li>
+<li>Security checks can be made- check without any handles]</li>
+<li>Objects are reference counted (every object has its own handle)</li>
+<li>Object Manager is the entity responsible for creating, obtaining and otherwise manipulating objects.</li>
+</ul>
+<p><img class="alignnone  wp-image-89" src="{{ site.baseurl }}/assets/mutex.png" alt="mutex" width="727" height="358" /></p>
+<p>The above screenshot explains the available handle for a process.</p>
+<p>Interesting hack: We are normally unable to launch two instances of Windows Media Player. The reason being, a Mutex- We will find a mutant handle within the Media player process which checks for any other instances, if present it does not allow. However when killed, as shown in the above process we are able to launch two instances, with no issues. :L)<br />
+<b><br />
+Virtual Memory</b></p>
+<p style="padding-left:30px;">Each process sees as flat linear memory - meaning, it thinks all of the memory is it to itself<br />
+Internally, Virtual Memory may be mapped to physical memory but may also be stored on disk (such as the Page File)<br />
+<b>[</b>When a process needs some memory it accesses the memory using a pointer-regardless where it is<b>]<br />
+</b>Memory Manager handles mapping of Virtual to Physical Pages<br />
+Process cannot know the physical address of a given address in a virtual memory <b>[</b>The Process is configured to run in protected mode- which demands paging<b>]</b> Usually Page is 4KB</p>
+<p><img class="alignnone size-full wp-image-91" src="{{ site.baseurl }}/assets/virtual-memory.png" alt="Virtual Memory" width="926" height="620" /><br />
+<strong>Summary<br />
+</strong></p>
+<ul>
+<li>A process is a management container for threads to execute code</li>
+<li>A thread executes code on a CPU</li>
+<li>Multiple threads can execute concurrently on multiple CPU's</li>
+<li>Per Process virtual memory provides a private address space isolated from other processes</li>
+<li>Kernel objects are accessed from user mode using private process handles</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
